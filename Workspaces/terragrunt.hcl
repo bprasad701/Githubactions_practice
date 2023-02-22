@@ -5,7 +5,7 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    bucket = "bhanu-terraform-state"
+    bucket = "tg-demo-bhanu"
 
     key = "${path_relative_to_include()}/terraform.tfstate"
     region         = "us-east-1"
