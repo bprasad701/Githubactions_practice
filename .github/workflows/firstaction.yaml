@@ -33,5 +33,7 @@ jobs:
        run: |
             pwd
             ls -al
-            echo "Hi everyone"
-
+            cd Workspaces/dev/ec2
+            ls
+            terragrunt init
+            terragrunt plan -lock=false
