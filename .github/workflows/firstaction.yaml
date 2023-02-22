@@ -29,8 +29,9 @@ jobs:
             aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
             aws-secret-access-key: ${{ env.AWS_SECRET_KEY }}
             aws-region: ${{env.AWS_REGION}}
-     - name: Apply Terragrunt configuration
+     - name: Run Terragrunt commands
        run: |
             pwd
+            ls -al
             echo "Hi everyone"
 
