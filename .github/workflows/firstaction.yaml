@@ -9,10 +9,10 @@ env:
   AWS_REGION: us-east-1
 
 jobs:
-  Deploy-Dev-environment-resources:
-  runs-on: ubuntu-latest
+  Ec2deploy:
+    runs-on: ubuntu-latest
 
-steps:
+    steps:
      - name: Get the code on to runner
        uses: actions/checkout@v3
      - name: HashiCorp - Setup Terraform
