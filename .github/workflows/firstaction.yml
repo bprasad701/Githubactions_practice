@@ -32,7 +32,6 @@ steps:
             aws-region: ${{env.AWS_REGION}}
      - name: Apply Terragrunt configuration
        run: |
-            cd terragrunt_project/dev/front-end-services/tg-ec2/
             pwd
-            terragrunt init
-            terragrunt apply -auto-approve -lock=false
+            echo "Hi everyone"
+
