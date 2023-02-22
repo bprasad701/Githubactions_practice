@@ -1,12 +1,38 @@
-name: First action
-on: workflow_dispatch
+name: Deploy AWS resources using Terragrunt
+on:
+  push:
+    branches: 
+      -main
+env:
+  AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+  AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+  AWS_REGION: us-east-1
+
 jobs:
-  first-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Greeting Message
-        run: |
-            echo "Welcome to CZ"
+  Deploy-Dev-environment-resources:
+  runs-on: ubuntu-latest
+
+steps:
+     - name: Get the code on to runner
+       uses: actions/checkout@v3
+     - name: HashiCorp - Setup Terraform
+       uses: hashicorp/setup-terraform@v2.0.3
+       with:
+            terraform_version: 1.1.9
+            terraform_wrapper: false
+     - name: Setup Terragrunt
+       uses: eLco/setup-terragrunt@v1.0.2
+       with:
+            terragrunt_version: 0.35.7
+     - name: Configure AWS credentials
+       uses: aws-actions/configure-aws-credentials@v1
+       with:
+            aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
+            aws-secret-access-key: ${{ env.AWS_SECRET_KEY }}
+            aws-region: ${{env.AWS_REGION}}
+     - name: Apply Terragrunt configuration
+       run: |
+            cd terragrunt_project/dev/front-end-services/tg-ec2/
             pwd
-            echo "workflow succesfully executed"
-        
+            terragrunt init
+            terragrunt apply -auto-approve -lock=false
